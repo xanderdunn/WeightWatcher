@@ -855,11 +855,15 @@ class WeightWatcher(object):
         
         plt.title(name)
         plt.hist(evals, bins=100)
+        plt.tight_layout()
         plt.show()
+        plt.clf()
         
         plt.title(name)
         plt.hist(np.log10(evals), bins=100)
+        plt.tight_layout()
         plt.show()
+        plt.clf()
             
         return ww_layer
     
@@ -1262,6 +1266,7 @@ class WeightWatcher(object):
         if savefig:
             plt.savefig("ww.layer{}.randesd.1.png".format(layer_id))
         plt.show()
+        plt.clf() # clear the canvas of any previous plots
 
         plt.hist(np.log10(nonzero_evals), bins=100, density=True, color='g', label='original')
         plt.hist(np.log10(nonzero_rand_evals), bins=100, density=True, color='r', label='random', alpha=0.5)
@@ -1273,6 +1278,7 @@ class WeightWatcher(object):
         if savefig:
             plt.savefig("ww.layer{}.randesd.2.png".format(layer_id))
         plt.show()
+        plt.clf() # clear the canvas of any previous plots
         
     # Mmybe should be static function    
     def calc_rank_loss(self, singular_values, M, lambda_max):
@@ -1343,9 +1349,11 @@ class WeightWatcher(object):
 
             plt.title(title)
             plt.legend()
+            plt.tight_layout()
             if savefig:
                 plt.savefig("ww.layer{}.esd.png".format(layer_id))
             plt.show()
+            plt.clf()
     
             # plot eigenvalue histogram
             num_bins = 100  # np.min([100,len(evals)])
@@ -1354,9 +1362,11 @@ class WeightWatcher(object):
             plt.title(title)
             plt.axvline(x=fit.xmin, color='red', label=r'$\lambda_{xmin}$')
             plt.legend()
+            plt.tight_layout()
             if savefig:
                 plt.savefig("ww.layer{}.esd2.png".format(layer_id))
             plt.show()
+            plt.clf()
 
             # plot log eigenvalue histogram
             nonzero_evals = evals[evals > 0.0]
@@ -1366,9 +1376,11 @@ class WeightWatcher(object):
             plt.axvline(x=np.log10(fit.xmin), color='red', label=r'$\lambda_{xmin}$')
             plt.axvline(x=np.log10(fit.xmax), color='orange',  label=r'$\lambda_{xmax}$')
             plt.legend()
+            plt.tight_layout()
             if savefig:
                 plt.savefig("ww.layer{}.esd3.png".format(layer_id))
             plt.show()
+            plt.clf()
     
             # plot xmins vs D
             
@@ -1380,9 +1392,11 @@ class WeightWatcher(object):
             title = r'$D_{KS}$' + ' vs.' + r'$x_{min},\;\lambda_{xmin}=$'
             plt.title(title+"{:0.3}".format(fit.xmin))
             plt.legend()
+            plt.tight_layout()
             if savefig:
                 plt.savefig("ww.layer{}.esd4.png".format(layer_id))
             plt.show() 
+            plt.clf()
                           
         return alpha, xmin, xmax, D, sigma, num_pl_spikes
     
@@ -1518,9 +1532,11 @@ class WeightWatcher(object):
                 plot_density(to_plot, layer_id=layer_id, Q=Q, sigma=s1, method="MP")
                 plt.legend([r'$\rho_{emp}(\lambda)$', 'MP fit'])
                 plt.title("MP ESD, sigma auto-fit for {}".format(layer_name))
+                plt.tight_layout()
                 if savefig:
-                    plt.savefig("ww.layer{}.mpfit1.png".formt(layer_id))
+                    plt.savefig("ww.layer{}.mpfit1.png".format(layer_id))
                 plt.show()
+                plt.clf()
             
         else:
             fit_law = 'MP ESD'
@@ -1536,9 +1552,11 @@ class WeightWatcher(object):
             title = title + r"$\#$ spikes={}".format(num_spikes)
     
             plt.title(title)
+            plt.tight_layout()
             if savefig:
                 plt.savefig("ww.layer{}.mpfit2.png".format(layer_id))
             plt.show()
+            plt.clf()
             
         return num_spikes, sigma_mp, mp_softrank
 
